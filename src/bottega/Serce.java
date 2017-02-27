@@ -1,7 +1,5 @@
 package bottega;
 
-import sun.nio.cs.KOI8_R;
-
 import javax.management.RuntimeErrorException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -175,6 +173,28 @@ public class Serce {
 
         System.out.println("Przeżyłeś " + wiekMinuty + " minut");
 
+        Long sumaUderzen = wyliczSumaUderzen(
+                czestotliwoscNieDorosly,
+                kondycjaIndeks,
+                wiekIndeks,
+                mezczyzniTetno,
+                kobietyTetno,
+                plecValue,
+                kondycjaValue,
+                wiekMinuty
+        );
+
+        System.out.println("Suma uderzeń wynosi: " + sumaUderzen / 1000 + " tysięcy");
+    }
+
+    private static Long wyliczSumaUderzen(Map<Long, Long> czestotliwoscNieDorosly,
+                                          Map<bottega.Serce.Kondycja, Integer> kondycjaIndeks,
+                                          Map<Long, Integer> wiekIndeks,
+                                          int[][] mezczyzniTetno,
+                                          int[][] kobietyTetno,
+                                          bottega.Serce.Plec plecValue,
+                                          bottega.Serce.Kondycja kondycjaValue,
+                                          long wiekMinuty) {
         Long poprzendniaGranica = 0L;
         Long sumaUderzen = 0L;
 
@@ -208,7 +228,6 @@ public class Serce {
                 }
             }
         }
-
-        System.out.println("Suma uderzeń wynosi: " + sumaUderzen / 1000 + " tysięcy");
+        return sumaUderzen;
     }
 }
